@@ -23,7 +23,7 @@ namespace String.Calculator
 
         private static string[] GetTokens(string values)
         {
-            var tokens = values.Split(',');
+            var tokens = values.Split(new []{','},2);
             return tokens;
         }
     }

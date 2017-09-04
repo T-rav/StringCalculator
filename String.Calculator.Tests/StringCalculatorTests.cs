@@ -44,5 +44,6 @@ namespace StringCalculatorKata
             //---------------Assert-----------------------
             Assert.AreEqual(expected, result);
         }
+
     }
 }
