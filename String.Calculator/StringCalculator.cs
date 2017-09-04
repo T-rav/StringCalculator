@@ -34,9 +34,9 @@ namespace String.Calculator
             return result;
         }
 
-        private string[] FetchDelimiters(string values)
+        private char[] FetchDelimiters(string values)
         {
-            var delimiters = new[] {",", "\n"};
+            var delimiters = new[] {',', '\n'};
             if (HasCustomDelimiter(values))
             {
                 delimiters = AddCustomDelimiter(values, delimiters);
@@ -54,7 +54,7 @@ namespace String.Calculator
             return numbers.Where(x=>x <= 1000);
         }
 
-        private IEnumerable<int> ConvertNumbers(string values, string[] delimiters)
+        private IEnumerable<int> ConvertNumbers(string values, char[] delimiters)
         {
             var input = AdjustValuesString(values);
             var tokens = GetTokens(input, delimiters);
@@ -73,23 +73,21 @@ namespace String.Calculator
             }
         }
 
-        private string[] AddCustomDelimiter(string values, string[] delimiters)
+        private char[] AddCustomDelimiter(string values, char[] delimiters)
         {
-            var newSize = delimiters.Length + 1;
+            var start = values.IndexOf("//");
+            var end = values.IndexOf("\n");
+            var tokens = values.Substring(start, (end - start)).ToCharArray();
+
+            return AppendCustomDelimiters(delimiters, tokens);
+        }
+
+        private char[] AppendCustomDelimiters(char[] delimiters, char[] tokens)
+        {
+            var originalDelimitersLength = delimiters.Length;
+            var newSize = originalDelimitersLength + tokens.Length;
             Array.Resize(ref delimiters, newSize);
-
-            var delimiterPortionOfString = values.Split(']')[0];
-
-            if (delimiterPortionOfString.StartsWith("//["))
-            {
-                delimiterPortionOfString = delimiterPortionOfString.Substring(3);
-                delimiters[newSize - 1] = delimiterPortionOfString;
-            }
-            else
-            {
-                delimiters[newSize - 1] = values[2].ToString();
-            }
-
+            Array.Copy(tokens, 0, delimiters, originalDelimitersLength, tokens.Length);
             return delimiters;
         }
 
@@ -98,9 +96,9 @@ namespace String.Calculator
             return tokens.Select(int.Parse);
         }
 
-        private string[] GetTokens(string values, string[] delimiters)
+        private string[] GetTokens(string values, char[] delimiters)
         {
-            var tokens = values.Split(delimiters, StringSplitOptions.None);
+            var tokens = values.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
             return tokens;
         }
     }
