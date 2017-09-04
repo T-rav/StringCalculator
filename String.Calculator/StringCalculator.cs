@@ -18,9 +18,26 @@ namespace String.Calculator
                 delimiters = AddCustomDelimiter(values, delimiters);
                 values = values.Substring(4);
             }
+            var numbers = ConvertNumbers(values, delimiters);
+            ThrowExceptionIfNegatives(numbers);
+            return numbers.Sum();
+        }
+
+        private IEnumerable<int> ConvertNumbers(string values, char[] delimiters)
+        {
             var tokens = GetTokens(values, delimiters);
             var integers = ConvertStringNumbersToIntegers(tokens);
-            return integers.Sum();
+            return integers;
+        }
+
+        private static void ThrowExceptionIfNegatives(IEnumerable<int> integers)
+        {
+            var negatives = integers.Where(x => x < 0);
+            if (negatives.Any())
+            {
+                var negativesString = string.Join(",", negatives);
+                throw new Exception($"negatives not allowed: {negativesString}");
+            }
         }
 
         private char[] AddCustomDelimiter(string values, char[] delimiters)

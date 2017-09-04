@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using String.Calculator;
 
 namespace StringCalculatorKata
@@ -68,6 +69,19 @@ namespace StringCalculatorKata
             var result = calculator.Add(input);
             //---------------Assert-----------------------
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Add_WhenNegativeNumbers_ShouldThrowExceptionListingNegatives()
+        {
+            //---------------Arrange-------------------
+            var input = "10,5,-1";
+            var expected = "negatives not allowed: -1";
+            var calculator = new StringCalculator();
+            //---------------Act----------------------
+            var result = Assert.Throws<Exception>(() => calculator.Add(input));
+            //---------------Assert-----------------------
+            Assert.AreEqual(expected, result.Message);
         }
     }
 }
