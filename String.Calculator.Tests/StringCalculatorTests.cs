@@ -82,5 +82,31 @@ namespace StringCalculatorKata
             //---------------Assert-----------------------
             Assert.AreEqual(expected, result.Message);
         }
+
+        [Test]
+        public void Add_WhenNumbersLargerThan1000_ShouldReturnSumOfNumbersLessThan1000()
+        {
+            //---------------Arrange-------------------
+            var input = "3,5,1001";
+            var expected = 8;
+            var calculator = new StringCalculator();
+            //---------------Act----------------------
+            var result = calculator.Add(input);
+            //---------------Assert-----------------------
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Add_WhenNumbersLessThanOrEqualTo1000_ShouldReturnSum()
+        {
+            //---------------Arrange-------------------
+            var input = "3,2,1000,9";
+            var expected = 1014;
+            var calculator = new StringCalculator();
+            //---------------Act----------------------
+            var result = calculator.Add(input);
+            //---------------Assert-----------------------
+            Assert.AreEqual(expected, result);
+        }
     }
 }

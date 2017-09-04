@@ -20,7 +20,13 @@ namespace String.Calculator
             }
             var numbers = ConvertNumbers(values, delimiters);
             ThrowExceptionIfNegatives(numbers);
-            return numbers.Sum();
+            var filteredNumbers = FilterLargeNumbers(numbers);
+            return filteredNumbers.Sum();
+        }
+
+        private IEnumerable<int> FilterLargeNumbers(IEnumerable<int> numbers)
+        {
+            return numbers.Where(x=>x <= 1000);
         }
 
         private IEnumerable<int> ConvertNumbers(string values, char[] delimiters)
@@ -30,7 +36,7 @@ namespace String.Calculator
             return integers;
         }
 
-        private static void ThrowExceptionIfNegatives(IEnumerable<int> integers)
+        private void ThrowExceptionIfNegatives(IEnumerable<int> integers)
         {
             var negatives = integers.Where(x => x < 0);
             if (negatives.Any())
