@@ -57,5 +57,18 @@ namespace StringCalculatorKata
             //---------------Assert-----------------------
             Assert.AreEqual(expected, result);
         }
+
+        [Test]
+        public void Add_WhenCustomCommaDelimiter_ShouldReturnSum()
+        {
+            //---------------Arrange-------------------
+            var input = "//;\n8;7;6";
+            var expected = 21;
+            var calculator = new StringCalculator();
+            //---------------Act----------------------
+            var result = calculator.Add(input);
+            //---------------Assert-----------------------
+            Assert.AreEqual(expected, result);
+        }
     }
 }
