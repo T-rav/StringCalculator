@@ -1,4 +1,7 @@
-﻿namespace String.Calculator
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace String.Calculator
 {
     public class StringCalculator
     {
@@ -8,7 +11,20 @@
             {
                 return 0;
             }
-            return int.Parse(values);
+            var tokens = GetTokens(values);
+            var integers = ConvertStringNumbersToIntegers(tokens);
+            return integers.Sum();
+        }
+
+        private static IEnumerable<int> ConvertStringNumbersToIntegers(string[] tokens)
+        {
+            return tokens.Select(int.Parse);
+        }
+
+        private static string[] GetTokens(string values)
+        {
+            var tokens = values.Split(',');
+            return tokens;
         }
     }
 }
