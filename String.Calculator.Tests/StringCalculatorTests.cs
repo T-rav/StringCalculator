@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using String.Calculator;
 
 namespace StringCalculatorKata
 {
@@ -6,14 +7,16 @@ namespace StringCalculatorKata
     public class StringCalculatorTests
     {
         [Test]
-        public void Method_Whenx_Shouldy()
+        public void Add_WhenEmptyString_ShouldReturnZero()
         {
             //---------------Arrange-------------------
-
+            var input = string.Empty;
+            var expected = 0;
+            var calculator = new StringCalculator();
             //---------------Act----------------------
-
+            var result = calculator.Add(input);
             //---------------Assert-----------------------
-            Assert.Fail("Test Not Yet Implemented");
+            Assert.AreEqual(expected, result);
         }
     }
 }
