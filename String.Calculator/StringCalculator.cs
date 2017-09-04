@@ -57,7 +57,7 @@ namespace String.Calculator
         private IEnumerable<int> ConvertNumbers(string values, char[] delimiters)
         {
             var input = AdjustValuesString(values);
-            var tokens = GetTokens(input, delimiters);
+            var tokens = GetNumberTokens(input, delimiters);
             var integers = ConvertStringNumbersToIntegers(tokens);
             ThrowExceptionIfNegatives(integers);
             return integers;
@@ -96,7 +96,7 @@ namespace String.Calculator
             return tokens.Select(int.Parse);
         }
 
-        private string[] GetTokens(string values, char[] delimiters)
+        private string[] GetNumberTokens(string values, char[] delimiters)
         {
             var tokens = values.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
             return tokens;
