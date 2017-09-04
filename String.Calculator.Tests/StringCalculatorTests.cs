@@ -33,11 +33,11 @@ namespace StringCalculatorKata
         }
 
         [Test]
-        public void Add_WhenTwoNumbersWithCommaDelimiter_ShouldReturnSum()
+        public void Add_WhenCommaDelimiter_ShouldReturnSum()
         {
             //---------------Arrange-------------------
-            var input = "2,5";
-            var expected = 7;
+            var input = "5,5,9";
+            var expected = 19;
             var calculator = new StringCalculator();
             //---------------Act----------------------
             var result = calculator.Add(input);
@@ -46,11 +46,11 @@ namespace StringCalculatorKata
         }
 
         [Test]
-        public void Add_WhenManyNumbersWithCommaDelimiter_ShouldReturnSum()
+        public void Add_WhenNewlineDelimiter_ShouldReturnSum()
         {
             //---------------Arrange-------------------
-            var input = "5,5,9";
-            var expected = 19;
+            var input = "3\n1\n5";
+            var expected = 9;
             var calculator = new StringCalculator();
             //---------------Act----------------------
             var result = calculator.Add(input);
