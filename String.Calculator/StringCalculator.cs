@@ -12,16 +12,40 @@ namespace String.Calculator
             {
                 return 0;
             }
-            var delimiters = new[] {',', '\n'};
-            if (values.StartsWith("//"))
-            {
-                delimiters = AddCustomDelimiter(values, delimiters);
-                values = values.Substring(4);
-            }
+            var delimiters = FetchDelimiters(values);
             var numbers = ConvertNumbers(values, delimiters);
-            ThrowExceptionIfNegatives(numbers);
+            return SumNumbers(numbers);
+        }
+
+        private int SumNumbers(IEnumerable<int> numbers)
+        {
             var filteredNumbers = FilterLargeNumbers(numbers);
             return filteredNumbers.Sum();
+        }
+
+        private string AdjustValuesString(string values)
+        {
+            var result = values;
+            if (HasCustomDelimiter(values))
+            {
+                result = values.Substring(4);
+            }
+            return result;
+        }
+
+        private char[] FetchDelimiters(string values)
+        {
+            var delimiters = new[] {',', '\n'};
+            if (HasCustomDelimiter(values))
+            {
+                delimiters = AddCustomDelimiter(values, delimiters);
+            }
+            return delimiters;
+        }
+
+        private bool HasCustomDelimiter(string values)
+        {
+            return values.StartsWith("//");
         }
 
         private IEnumerable<int> FilterLargeNumbers(IEnumerable<int> numbers)
@@ -31,8 +55,10 @@ namespace String.Calculator
 
         private IEnumerable<int> ConvertNumbers(string values, char[] delimiters)
         {
-            var tokens = GetTokens(values, delimiters);
+            var input = AdjustValuesString(values);
+            var tokens = GetTokens(input, delimiters);
             var integers = ConvertStringNumbersToIntegers(tokens);
+            ThrowExceptionIfNegatives(integers);
             return integers;
         }
 
