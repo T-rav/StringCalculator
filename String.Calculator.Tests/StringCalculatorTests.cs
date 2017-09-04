@@ -122,26 +122,5 @@ namespace StringCalculatorKata
             Assert.AreEqual(expected, result);
         }
 
-        [Test]
-        public void Method_Whenx_Shouldy()
-        {
-            var values = "//[**]\n5**4**9";
-            var delimiters = new[] { ",", "\n" };
-            var newSize = delimiters.Length + 1;
-            Array.Resize(ref delimiters, newSize);
-
-
-            var delimters = values.Split(']')[0];
-
-            if (delimters.StartsWith("//["))
-            {
-                delimters = delimters.Substring(3);
-            }
-
-            delimiters[newSize - 1] = delimters.ToString();
-            
-            Assert.AreEqual("**",delimiters[2]);
-        }
-
     }
 }
