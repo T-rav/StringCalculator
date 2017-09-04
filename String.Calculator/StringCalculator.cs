@@ -28,14 +28,15 @@ namespace String.Calculator
             var result = values;
             if (HasCustomDelimiter(values))
             {
-                result = values.Substring(4);
+                var indexOfNewline = values.IndexOf('\n');
+                result = values.Substring(indexOfNewline+1);
             }
             return result;
         }
 
-        private char[] FetchDelimiters(string values)
+        private string[] FetchDelimiters(string values)
         {
-            var delimiters = new[] {',', '\n'};
+            var delimiters = new[] {",", "\n"};
             if (HasCustomDelimiter(values))
             {
                 delimiters = AddCustomDelimiter(values, delimiters);
@@ -53,7 +54,7 @@ namespace String.Calculator
             return numbers.Where(x=>x <= 1000);
         }
 
-        private IEnumerable<int> ConvertNumbers(string values, char[] delimiters)
+        private IEnumerable<int> ConvertNumbers(string values, string[] delimiters)
         {
             var input = AdjustValuesString(values);
             var tokens = GetTokens(input, delimiters);
@@ -72,11 +73,23 @@ namespace String.Calculator
             }
         }
 
-        private char[] AddCustomDelimiter(string values, char[] delimiters)
+        private string[] AddCustomDelimiter(string values, string[] delimiters)
         {
             var newSize = delimiters.Length + 1;
             Array.Resize(ref delimiters, newSize);
-            delimiters[newSize - 1] = (char) values[2];
+
+            var delimiterPortionOfString = values.Split(']')[0];
+
+            if (delimiterPortionOfString.StartsWith("//["))
+            {
+                delimiterPortionOfString = delimiterPortionOfString.Substring(3);
+                delimiters[newSize - 1] = delimiterPortionOfString;
+            }
+            else
+            {
+                delimiters[newSize - 1] = values[2].ToString();
+            }
+
             return delimiters;
         }
 
@@ -85,9 +98,9 @@ namespace String.Calculator
             return tokens.Select(int.Parse);
         }
 
-        private string[] GetTokens(string values, char[] delimiters)
+        private string[] GetTokens(string values, string[] delimiters)
         {
-            var tokens = values.Split(delimiters);
+            var tokens = values.Split(delimiters, StringSplitOptions.None);
             return tokens;
         }
     }

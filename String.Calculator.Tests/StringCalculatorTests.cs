@@ -108,5 +108,40 @@ namespace StringCalculatorKata
             //---------------Assert-----------------------
             Assert.AreEqual(expected, result);
         }
+
+        [Test]
+        public void Add_WhenCustomMultiCharDelimiter_ShouldReturnSum()
+        {
+            //---------------Arrange-------------------
+            var input = "//[**]\n5**4**9";
+            var expected = 18;
+            var calculator = new StringCalculator();
+            //---------------Act----------------------
+            var result = calculator.Add(input);
+            //---------------Assert-----------------------
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void Method_Whenx_Shouldy()
+        {
+            var values = "//[**]\n5**4**9";
+            var delimiters = new[] { ",", "\n" };
+            var newSize = delimiters.Length + 1;
+            Array.Resize(ref delimiters, newSize);
+
+
+            var delimters = values.Split(']')[0];
+
+            if (delimters.StartsWith("//["))
+            {
+                delimters = delimters.Substring(3);
+            }
+
+            delimiters[newSize - 1] = delimters.ToString();
+            
+            Assert.AreEqual("**",delimiters[2]);
+        }
+
     }
 }
