@@ -18,5 +18,18 @@ namespace StringCalculatorKata
             //---------------Assert-----------------------
             Assert.AreEqual(expected, result);
         }
+
+        [TestCase("1",1)]
+        [TestCase("2", 2)]
+        [TestCase("11", 11)]
+        public void Add_WhenSingleNumberString_ShouldReturnIntegerOfNumber(string input, int expected)
+        {
+            //---------------Arrange-------------------
+            var calculator = new StringCalculator();
+            //---------------Act----------------------
+            var result = calculator.Add(input);
+            //---------------Assert-----------------------
+            Assert.AreEqual(expected, result);
+        }
     }
 }
