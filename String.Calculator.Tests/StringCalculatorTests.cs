@@ -71,12 +71,11 @@ namespace StringCalculatorKata
             Assert.AreEqual(expected, result);
         }
 
-        [Test]
-        public void Add_WhenNegativeNumbers_ShouldThrowExceptionListingNegatives()
+        [TestCase("10,5,-1", "negatives not allowed: -1")]
+        [TestCase("10,5,-1,6,-3,-9", "negatives not allowed: -1,-3,-9")]
+        public void Add_WhenNegativeNumbers_ShouldThrowExceptionListingNegatives(string input, string expected)
         {
             //---------------Arrange-------------------
-            var input = "10,5,-1";
-            var expected = "negatives not allowed: -1";
             var calculator = new StringCalculator();
             //---------------Act----------------------
             var result = Assert.Throws<Exception>(() => calculator.Add(input));
