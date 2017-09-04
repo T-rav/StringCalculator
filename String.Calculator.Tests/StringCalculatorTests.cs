@@ -122,5 +122,18 @@ namespace StringCalculatorKata
             Assert.AreEqual(expected, result);
         }
 
+        [Test]
+        public void Add_WhenManyCustomMultiCharDelimiter_ShouldReturnSum()
+        {
+            //---------------Arrange-------------------
+            var input = "//[**][&&]\n3**6&&11";
+            var expected = 20;
+            var calculator = new StringCalculator();
+            //---------------Act----------------------
+            var result = calculator.Add(input);
+            //---------------Assert-----------------------
+            Assert.AreEqual(expected, result);
+        }
+
     }
 }
