@@ -23,17 +23,6 @@ namespace String.Calculator
             return filteredNumbers.Sum();
         }
 
-        private string AdjustValuesString(string values)
-        {
-            var result = values;
-            if (HasCustomDelimiter(values))
-            {
-                var indexOfNewline = values.IndexOf('\n');
-                result = values.Substring(indexOfNewline+1);
-            }
-            return result;
-        }
-
         private char[] FetchDelimiters(string values)
         {
             var delimiters = new[] {',', '\n'};
@@ -63,6 +52,28 @@ namespace String.Calculator
             return integers;
         }
 
+        private string AdjustValuesString(string values)
+        {
+            var result = values;
+            if (HasCustomDelimiter(values))
+            {
+                var indexOfNewline = values.IndexOf('\n');
+                result = values.Substring(indexOfNewline + 1);
+            }
+            return result;
+        }
+
+        private string[] GetNumberTokens(string values, char[] delimiters)
+        {
+            var tokens = values.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
+            return tokens;
+        }
+
+        private IEnumerable<int> ConvertStringNumbersToIntegers(string[] tokens)
+        {
+            return tokens.Select(int.Parse);
+        }
+
         private void ThrowExceptionIfNegatives(IEnumerable<int> integers)
         {
             var negatives = integers.Where(x => x < 0);
@@ -89,17 +100,6 @@ namespace String.Calculator
             Array.Resize(ref delimiters, newSize);
             Array.Copy(tokens, 0, delimiters, originalDelimitersLength, tokens.Length);
             return delimiters;
-        }
-
-        private IEnumerable<int> ConvertStringNumbersToIntegers(string[] tokens)
-        {
-            return tokens.Select(int.Parse);
-        }
-
-        private string[] GetNumberTokens(string values, char[] delimiters)
-        {
-            var tokens = values.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-            return tokens;
         }
     }
 }
