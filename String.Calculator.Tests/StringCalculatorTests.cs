@@ -110,7 +110,7 @@ namespace StringCalculatorKata
         }
 
         [Test]
-        public void Add_WhenCustomMultiCharDelimiter_ShouldReturnSum()
+        public void Add_WhenCustomMulitpleCharDelimiter_ShouldReturnSum()
         {
             //---------------Arrange-------------------
             var input = "//[**]\n5**4**9";
@@ -123,7 +123,7 @@ namespace StringCalculatorKata
         }
 
         [Test]
-        public void Add_WhenManyCustomMultiCharDelimiter_ShouldReturnSum()
+        public void Add_WhenManyCustomMulitpleCharDelimiters_ShouldReturnSum()
         {
             //---------------Arrange-------------------
             var input = "//[%*][&!][(##)]\n3%*6&!11(##)22";
