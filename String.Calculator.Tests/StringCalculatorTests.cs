@@ -126,8 +126,8 @@ namespace StringCalculatorKata
         public void Add_WhenManyCustomMultiCharDelimiter_ShouldReturnSum()
         {
             //---------------Arrange-------------------
-            var input = "//[**][&&]\n3**6&&11";
-            var expected = 20;
+            var input = "//[%*][&!][(##)]\n3%*6&!11(##)22";
+            var expected = 42;
             var calculator = new StringCalculator();
             //---------------Act----------------------
             var result = calculator.Add(input);
