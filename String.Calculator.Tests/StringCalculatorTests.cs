@@ -34,7 +34,7 @@ namespace StringCalculatorKata
         }
 
         [Test]
-        public void Add_WhenCommaDelimiter_ShouldReturnSum()
+        public void Add_WhenCommaDelimitedString_ShouldReturnSum()
         {
             //---------------Arrange-------------------
             var input = "5,5,9";
@@ -47,7 +47,7 @@ namespace StringCalculatorKata
         }
 
         [Test]
-        public void Add_WhenNewlineDelimiter_ShouldReturnSum()
+        public void Add_WhenNewlineDelimited_ShouldReturnSum()
         {
             //---------------Arrange-------------------
             var input = "3\n1\n5";
