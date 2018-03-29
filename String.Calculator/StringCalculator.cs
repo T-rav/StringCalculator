@@ -38,6 +38,24 @@ namespace String.Calculator
             return values.StartsWith("//");
         }
 
+        private char[] AddCustomDelimiter(string values, char[] delimiters)
+        {
+            var start = values.IndexOf("//");
+            var end = values.IndexOf("\n");
+            var tokens = values.Substring(start, (end - start)).ToCharArray();
+
+            return AppendCustomDelimiters(delimiters, tokens);
+        }
+
+        private char[] AppendCustomDelimiters(char[] delimiters, char[] tokens)
+        {
+            var originalDelimitersLength = delimiters.Length;
+            var newSize = originalDelimitersLength + tokens.Length;
+            Array.Resize(ref delimiters, newSize);
+            Array.Copy(tokens, 0, delimiters, originalDelimitersLength, tokens.Length);
+            return delimiters;
+        }
+
         private IEnumerable<int> FilterLargeNumbers(IEnumerable<int> numbers)
         {
             return numbers.Where(x=>x <= 1000);
@@ -82,24 +100,6 @@ namespace String.Calculator
                 var negativesString = string.Join(",", negatives);
                 throw new Exception($"negatives not allowed: {negativesString}");
             }
-        }
-
-        private char[] AddCustomDelimiter(string values, char[] delimiters)
-        {
-            var start = values.IndexOf("//");
-            var end = values.IndexOf("\n");
-            var tokens = values.Substring(start, (end - start)).ToCharArray();
-
-            return AppendCustomDelimiters(delimiters, tokens);
-        }
-
-        private char[] AppendCustomDelimiters(char[] delimiters, char[] tokens)
-        {
-            var originalDelimitersLength = delimiters.Length;
-            var newSize = originalDelimitersLength + tokens.Length;
-            Array.Resize(ref delimiters, newSize);
-            Array.Copy(tokens, 0, delimiters, originalDelimitersLength, tokens.Length);
-            return delimiters;
         }
     }
 }
